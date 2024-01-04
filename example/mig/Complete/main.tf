@@ -1,5 +1,5 @@
 provider "google" {
-  project = "opz0-397319"
+  project = "local-concord-408802"
   region  = "asia-northeast1"
   zone    = "asia-northeast1-a"
 }
@@ -55,6 +55,7 @@ module "instance_template" {
   source_image         = "ubuntu-2204-jammy-v20230908"
   source_image_family  = "ubuntu-2204-lts"
   source_image_project = "ubuntu-os-cloud"
+  disk_size_gb         = "20"
   subnetwork           = module.subnet.subnet_id
   instance_template    = true
   service_account      = null
@@ -74,7 +75,8 @@ module "mig" {
   source                       = "../../../"
   hostname                     = "test"
   environment                  = "instance-group"
-  max_replicas                 = 2
+  min_replicas                 = var.min_replicas
+  max_replicas                 = var.max_replicas
   region                       = var.region
   target_pools                 = var.target_pools
   distribution_policy_zones    = var.distribution_policy_zones

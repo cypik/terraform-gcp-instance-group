@@ -116,3 +116,13 @@ variable "autoscaling_enabled" {
   type        = bool
   default     = true
 }
+
+variable "min_replicas" {
+  type    = number
+  default = 1
+}
+
+variable "max_replicas" {
+  type    = number
+  default = 5
+}

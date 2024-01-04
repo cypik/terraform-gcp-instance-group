@@ -1,5 +1,5 @@
 provider "google" {
-  project = "opz0-397319"
+  project = "local-concord-408802"
   region  = "asia-northeast1"
   zone    = "asia-northeast1-a"
 }
@@ -55,11 +55,12 @@ module "instance_template" {
   source_image         = "ubuntu-2204-jammy-v20230908"
   source_image_family  = "ubuntu-2204-lts"
   source_image_project = "ubuntu-os-cloud"
+  disk_size_gb         = "20"
   subnetwork           = module.subnet.subnet_id
   instance_template    = true
   service_account      = null
   ## public IP if enable_public_ip is true
-  enable_public_ip = false
+  enable_public_ip = true
   metadata = {
     ssh-keys = <<EOF
       dev:ssh-rsa AAAAB3NzaC1yc2EAA/3mwt2y+PDQMU= suresh@suresh
@@ -74,7 +75,7 @@ module "mig" {
   source              = "../../../"
   region              = var.region
   hostname            = "test"
-  environment         = "mig-autoscaler"
+  environment         = "mig-autoscaling"
   autoscaling_enabled = var.autoscaling_enabled
   min_replicas        = var.min_replicas
   autoscaling_cpu     = var.autoscaling_cpu

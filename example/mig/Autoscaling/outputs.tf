@@ -25,5 +25,5 @@ output "instance_group" {
 
 output "health_check_self_links" {
   value       = module.mig.health_check_self_links
-  description = "All self_links of healthchecks created for the instance group."
+  description = "All self_links of health checks created for the instance group."
 }
